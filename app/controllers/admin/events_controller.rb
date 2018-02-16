@@ -1,10 +1,11 @@
 class Admin::EventsController < ApplicationController
+  PER = 5
   before_action :set_event, only: [:show, :edit, :update, :destroy]
   before_action :event_params, only: [:create, :update]
   
   layout 'admin'
   def index
-    @events = Event.all
+    @events = Event.page(params[:page]).per(PER)
   end
   
   def show
